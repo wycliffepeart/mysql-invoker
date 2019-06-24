@@ -1,0 +1,32 @@
+{
+  "name": "mysql-invoker",
+  "version": "0.0.1",
+  "description": "Mysql invoker is used to call stored procedure or function in the database",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava -v -s --color"
+  },
+  "keywords": [
+    "Mysql",
+    "Stored Procedure",
+    "Function"
+  ],
+  "author": "Wycliffe Peart",
+  "license": "MIT",
+  "dependencies": {
+    "mysql": "^2.17.1",
+    "typescript": "^3.5.2"
+  },
+  "devDependencies": {
+    "@types/faker": "^4.1.5",
+    "@types/mysql": "^2.15.6",
+    "ava": "^2.1.0",
+    "faker": "^4.1.0"
+  },
+  "ava": {
+    "files": [
+      "tests/**/*.js",
+      "!tests/setup"
+    ]
+  }
+}
