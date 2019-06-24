@@ -1,10 +1,13 @@
 
 import * as faker from 'faker';
 import { MysqlInvoker } from '../../index';
+import { connectionCongif } from './connection';
 
-const mysql = new MysqlInvoker('localhost', 'secret','application', 'invoker', { multipleStatements: true });
+const mysql = new MysqlInvoker(connectionCongif());
 
-mysql.invoke<any[]>('createUser', ...Array.from(new Array(10), () => ({ name: faker.name.findName() }))).then(results => {
+const seeds = Array.from(new Array(10), () => ({ name: faker.name.findName() }));
+
+mysql.invoke<any[]>('createUser', ...seeds).then(results => {
 
     console.log(results.filter(result => Array.isArray(result)).map(result => result[0]));
 
