@@ -39,7 +39,7 @@ Create a new instance of mysql invoker and pass at least the minimum required co
 const mysql = new MysqlInvoker( { /** Config Options **/ } );
 ```
 
-**Configuration options**
+**[Configuration options](#configuration-options)**
 
 Each instance will require a set of configuration options, these options will use when connecting to the database.
 
@@ -65,7 +65,7 @@ const createUserArg: any = {
 }
 ```
 
->  Please note that the order of the arguments in the model should match the order of the stored procedure and function argument list.
+>  Please note that the order of the arguments in the model must match the order of the stored procedure and function argument list.
 
 
 ```ts
