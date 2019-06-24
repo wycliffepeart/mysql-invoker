@@ -5,7 +5,7 @@
 
 [Introduction](#introduction) <br />
 [Installation](#installation) <br />
-[Getting Started](#using-tem-module) <br />
+[Getting Started](#getting-started) <br />
 [MIT License](#mit-license) <br />
 
 ****
@@ -23,7 +23,7 @@ This is done using (NPM) node package manager just copy and past in your termina
 npm i mysql-invoker --save
 ```
 
-## [Getting Started](#using-tem-module)
+## [Getting Started](#getting-started)
 
 To get started with the module, after installation just import the module and then use the destructuring construct to access the implementated class.
 
@@ -39,7 +39,7 @@ Create a new instance of mysql invoker and pass at least the minimum required co
 const mysql = new MysqlInvoker( { /** Config Options **/ } );
 ```
 
-## [Configuration options](#configuration-options)
+**Configuration options**
 
 Each instance will require a set of configuration options, these options will use when connecting to the database.
 
@@ -56,7 +56,7 @@ Each instance will require a set of configuration options, these options will us
 When invoking a stored procedure or function you need to first create the argument object model. This model will contain all the arguments need to carry out the excecution process.
 
 
-**Create the store procedure arg model**
+**Create the store procedure argumant model**
 
 ```ts
 const createUserArg: any = {
@@ -65,7 +65,7 @@ const createUserArg: any = {
 }
 ```
 
-> #### Please note that the order of the arguments in the model should match the order of the stored procedure and function argument list.
+>  Please note that the order of the arguments in the model should match the order of the stored procedure and function argument list.
 
 
 ```ts
@@ -75,7 +75,6 @@ async function createUser(createUserArg: object): Promise<any[]>{
     const mysql = new MysqlInvoker( { /** Config Options **/ } );
 
     return await mysql.invoke<any[]>('createUser', createUserArg);
-
 }
 ```
 
