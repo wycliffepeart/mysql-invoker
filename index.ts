@@ -10,7 +10,7 @@ export class MysqlInvoker {
    * @param options
    */
 
-  public constructor(private host: string, private password: string, private options?: Mysql.ConnectionConfig) {
+  public constructor(private host: string, private password: string, private user: string, private database: string, private options?: Mysql.ConnectionConfig) {
   }
 
   /**
@@ -25,8 +25,8 @@ export class MysqlInvoker {
       ...this.options || {},
       host: this.host,
       password: this.password,
-      user: 'application',
-      database: 'invoker',
+      user: this.user,
+      database: this.database,
     });
 
   }
@@ -60,7 +60,7 @@ export class MysqlInvoker {
   public invoke<T>(action: string, ...models: object[]): Promise<T> {
 
     return this.callProcedure<T>(action, ...models);
-    
+
   }
 
   /**
