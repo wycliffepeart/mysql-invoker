@@ -1,34 +1,50 @@
 import * as Mysql from 'mysql';
 
+const key = Symbol.for('MYSQL_INVOKER_NAMESPACE_1580fa11-e9e2-4ea7-a3ca-435bb97c21e2');
+
 export class MysqlInvoker {
+
+  /**
+   * The connection config
+   */
+  private connectionConfig: Mysql.ConnectionConfig;
 
   /**
    * Create an instance of this service
    *
-   * @param host
-   * @param password
-   * @param options
+   * @param connectionConfig
    */
 
-  public constructor(private host: string, private password: string, private user: string, private database: string, private options?: Mysql.ConnectionConfig) {
+  public constructor(connectionConfig?: Mysql.ConnectionConfig) {
+
+    const config: Mysql.ConnectionConfig = (global as any)[key];
+
+    this.connectionConfig = Object.assign(config, connectionConfig);
+
   }
 
   /**
-   * Create a mysql connection object
-   *
-   * @return {Mysql.Connection}
+   * Set the global connection configuration
+   * 
+   * @param connectionConfig 
    */
+  public static config(connectionConfig: Mysql.ConnectionConfig){
 
-  private createConnection(): Mysql.Connection {
+    const globalSymbols = Object.getOwnPropertySymbols(global);
+  
+    const hasNamespace = (globalSymbols.indexOf(key) > -1);
+  
+    if (!hasNamespace) (global as any)[key] = connectionConfig;
 
-    return Mysql.createConnection({
-      ...this.options || {},
-      host: this.host,
-      password: this.password,
-      user: this.user,
-      database: this.database,
-    });
+  }
 
+  /**
+   * Clean up any connection object in memory
+   */
+  public static flush(){
+
+    delete (global as any)[key];
+    
   }
 
   /**
@@ -74,7 +90,7 @@ export class MysqlInvoker {
 
     return new Promise(async (resolve, reject) => {
 
-      const conn = this.createConnection();
+      const conn = Mysql.createConnection(this.connectionConfig);
 
       conn.query(this.prepareAction(action, models).join(';'), (error: Mysql.MysqlError | null, results: T) => {
 
@@ -94,3 +110,5 @@ export class MysqlInvoker {
     });
   }
 }
+
+export const Invoker = new MysqlInvoker();
