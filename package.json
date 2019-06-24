@@ -4,7 +4,9 @@
   "description": "Mysql invoker is used to call stored procedure or function in the database",
   "main": "index.js",
   "scripts": {
-    "test": "ava -v -s --color"
+    "test": "ava -v -s --color",
+    "tsc": "tsc -w",
+    "seeder": "node ./tests/setup/seeder.js"
   },
   "keywords": [
     "Mysql",
