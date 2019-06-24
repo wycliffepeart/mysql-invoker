@@ -9,7 +9,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const faker = __importStar(require("faker"));
 const index_1 = require("../../index");
-const mysql = new index_1.MysqlInvoker('localhost', 'secret', 'application', 'invoker', { multipleStatements: true });
-mysql.invoke('createUser', ...Array.from(new Array(10), () => ({ name: faker.name.findName() }))).then(results => {
+const connection_1 = require("./connection");
+const mysql = new index_1.MysqlInvoker(connection_1.connectionCongif());
+const seeds = Array.from(new Array(10), () => ({ name: faker.name.findName() }));
+mysql.invoke('createUser', ...seeds).then(results => {
     console.log(results.filter(result => Array.isArray(result)).map(result => result[0]));
 }).catch(console.error);
