@@ -53,7 +53,7 @@ Each instance will require a set of configuration options, these options will us
 
 ## [Invoking a stored procedure](#configuration-options)
 
-When invoking a stored procedure or function you need to first create the argument object model. This model will contain all the arguments need to carry out the excecution process.
+When invoking a stored procedure or function you need to first create the argument object model. This model will contain all the arguments needed to carry out the excecution process.
 
 
 **Create the store procedure argument model**
