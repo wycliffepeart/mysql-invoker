@@ -10,16 +10,25 @@ export class MysqlInvoker {
    * @param connectionConfig
    */
 
-  public constructor(private connectionConfig: Mysql.ConnectionConfig = {}) {}
+  public constructor(private connectionConfig: Mysql.PoolConfig = {}) { }
 
   /**
    * 
    */
-  public getConnectionConfig(){
+  public getConnectionConfig(): Mysql.PoolConfig {
 
     const config: Mysql.ConnectionConfig = (global as any)[key] || {};
 
-    return Object.assign(config, this.connectionConfig);
+    return Object.assign({ connectionLimit: 1 }, config, this.connectionConfig);
+  }
+
+  /**
+   * 
+   */
+  public createPool(): Mysql.Pool {
+
+    return Mysql.createPool(this.getConnectionConfig());
+
   }
 
   /**
@@ -27,12 +36,12 @@ export class MysqlInvoker {
    * 
    * @param connectionConfig 
    */
-  public static config(connectionConfig: Mysql.ConnectionConfig){
+  public static config(connectionConfig: Mysql.PoolConfig) {
 
     const globalSymbols = Object.getOwnPropertySymbols(global);
-  
+
     const hasNamespace = (globalSymbols.indexOf(key) > -1);
-  
+
     if (!hasNamespace) (global as any)[key] = connectionConfig;
 
   }
@@ -40,10 +49,10 @@ export class MysqlInvoker {
   /**
    * Clean up any connection object in memory
    */
-  public static flush(){
+  public static flush() {
 
     delete (global as any)[key];
-    
+
   }
 
   /**
@@ -89,27 +98,34 @@ export class MysqlInvoker {
 
     return new Promise(async (resolve, reject) => {
 
-      const conn = Mysql.createConnection(this.getConnectionConfig());
+      this.createPool().getConnection((error, conn) => {
 
-      conn.query(this.prepareAction(action, models).join(';'), (error: Mysql.MysqlError | null, results: T) => {
+        conn.query(this.prepareAction(action, models).join(';'), (error: Mysql.MysqlError | null, results: T) => {
 
-        if (error) {
+          conn.release();
 
-          reject(error);
+          if (error) {
 
-          return;
-        }
+            reject(error);
 
-        resolve(results);
+            return;
+          }
+
+          resolve(results);
+
+        });
 
       });
 
-      conn.end();
+
+      // conn.end();
 
     });
+
   }
+
 }
 
 
 // Facade implementation
-export const Invoker = new MysqlInvoker({multipleStatements: true});
+export const Invoker = new MysqlInvoker({ multipleStatements: true });
