@@ -6,7 +6,7 @@
   "scripts": {
     "test": "ava -v -s --color",
     "tsc": "tsc -w",
-    "seeder": "node ./tests/setup/seeder.js"
+    "seed": "node ./tests/setup/seeder.js"
   },
   "keywords": [
     "Mysql",
