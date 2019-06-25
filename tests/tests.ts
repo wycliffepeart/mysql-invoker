@@ -1,11 +1,12 @@
 import test from 'ava';
 import { MysqlInvoker } from '../index';
+import { connectionCongif } from './setup/connection';
 
 
 test("Test Read Store Procedure", async t => {
 
 
-  const mysql = new MysqlInvoker();
+  const mysql = new MysqlInvoker(connectionCongif());
 
   const result: object = (await mysql.invoke<any[]>('readUser', {id: 1}))[0][0];
 
@@ -16,7 +17,7 @@ test("Test Read Store Procedure", async t => {
 
 test("Test List Store Procedure", async t => {
 
-  const mysql = new MysqlInvoker();
+  const mysql = new MysqlInvoker(connectionCongif());
 
   const result: object = (await mysql.invoke<any[]>('listUser', {limit: 30, offset: 0}))[0];
 
