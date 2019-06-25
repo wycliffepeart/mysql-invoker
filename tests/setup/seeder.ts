@@ -33,3 +33,7 @@ Invoker.invoke<any[]>('createUser', ...seeds2).then(results => {
     console.log(results.filter(result => Array.isArray(result)).map(result => result[0]));
 
 }).catch(console.error);
+
+MysqlInvoker.flush();
+
+console.log(Invoker.getConnectionConfig());
