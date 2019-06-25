@@ -56,7 +56,7 @@ Each instance will require a set of configuration options, these options will us
 When invoking a stored procedure or function you need to first create the argument object model. This model will contain all the arguments need to carry out the excecution process.
 
 
-**Create the store procedure argumant model**
+**Create the store procedure argument model**
 
 ```ts
 const createUserArg: any = {
