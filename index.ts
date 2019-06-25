@@ -5,22 +5,21 @@ const key = Symbol.for('MYSQL_INVOKER_NAMESPACE_1580fa11-e9e2-4ea7-a3ca-435bb97c
 export class MysqlInvoker {
 
   /**
-   * The connection config
-   */
-  private connectionConfig: Mysql.ConnectionConfig;
-
-  /**
    * Create an instance of this service
    *
    * @param connectionConfig
    */
 
-  public constructor(connectionConfig?: Mysql.ConnectionConfig) {
+  public constructor(private connectionConfig: Mysql.ConnectionConfig = {}) {}
 
-    const config: Mysql.ConnectionConfig = (global as any)[key];
+  /**
+   * 
+   */
+  private getConnectionConfig(){
 
-    this.connectionConfig = Object.assign(config, connectionConfig);
+    const config: Mysql.ConnectionConfig = (global as any)[key] || {};
 
+    return Object.assign(config, this.connectionConfig);
   }
 
   /**
@@ -90,7 +89,7 @@ export class MysqlInvoker {
 
     return new Promise(async (resolve, reject) => {
 
-      const conn = Mysql.createConnection(this.connectionConfig);
+      const conn = Mysql.createConnection(this.getConnectionConfig());
 
       conn.query(this.prepareAction(action, models).join(';'), (error: Mysql.MysqlError | null, results: T) => {
 
@@ -111,4 +110,6 @@ export class MysqlInvoker {
   }
 }
 
-export const Invoker = new MysqlInvoker();
+
+// Facade implementation
+export const Invoker = new MysqlInvoker({multipleStatements: true});
