@@ -33,7 +33,7 @@ import { MysqlInvoker } from 'mysql-invoker';
 
 **The Invoker instance**
 
-Create a new instance of mysql invoker and pass at least the minimum required configuration options to it, [see config options  for more information](https://github.com/mysqljs/mysql#connection-options)
+Create a new instance of mysql invoker and pass at least the minimum required configuration options as `object`, [see config options  for more information](https://github.com/mysqljs/mysql#connection-options)
 
 ```js
 const mysql = new MysqlInvoker( { /** Config Options **/ } );
@@ -47,9 +47,9 @@ Each instance will require a set of configuration options, these options will us
 |----------------- | ---------| ---------:|----------------------------------
 | **host**   | `string` | Yes       | The host name of the database
 | **user** | `string` | Yes       | The user name used by the user
-| **database**      | `string` | Yes  | Database trying to connect to
+| **database**      | `string` | Yes  | The database to establish connection to
 | **password**      | `string` | Yes  | The password used by the user
-| **multipleStatements**   | `boolean` | Optional  | Allow for multiple statement to be excecute
+| **multipleStatements**   | `boolean` | Optional  | Allow for multiple statement to be excecute. [Visit mysql github page for more information](https://github.com/mysqljs/mysql#multiple-statement-queries)
 
 ## [Invoking a stored procedure](#configuration-options)
 
