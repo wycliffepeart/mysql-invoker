@@ -1,9 +1,8 @@
 
-
-export const connectionCongif = () => ({
+export const connectionCongif = (options?: object) => ({
     host: 'localhost',
     user: 'application', 
-    password: 'secret', 
-    database: 'organization', 
-    multipleStatements: true 
+    password: '__Password1', 
+    database: 'invoker',
+    ...options
 })
