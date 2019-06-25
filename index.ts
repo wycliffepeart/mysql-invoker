@@ -15,7 +15,7 @@ export class MysqlInvoker {
   /**
    * 
    */
-  private getConnectionConfig(){
+  public getConnectionConfig(){
 
     const config: Mysql.ConnectionConfig = (global as any)[key] || {};
 
