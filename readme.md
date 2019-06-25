@@ -33,13 +33,13 @@ import { MysqlInvoker } from 'mysql-invoker';
 
 **The Invoker instance**
 
-Create a new instance of mysql invoker and pass at least the minimum required configuration options to it, [see config options  for more information](#configuration-options)
+Create a new instance of mysql invoker and pass at least the minimum required configuration options to it, [see config options  for more information](https://github.com/mysqljs/mysql#connection-options)
 
 ```js
 const mysql = new MysqlInvoker( { /** Config Options **/ } );
 ```
 
-**[Configuration options](#configuration-options)**
+**Basic Connection Configuration options**
 
 Each instance will require a set of configuration options, these options will use when connecting to the database.
 
