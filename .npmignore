@@ -1,2 +1,4 @@
 tests
+.vscode
+.travis.yml
 node_modules
