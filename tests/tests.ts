@@ -1,25 +1,24 @@
 import test from 'ava';
-import { MysqlInvoker } from '../index';
-import { connectionCongif } from './setup/connection';
+import { userRepository } from './setup/user.model';
 
 
 test("Test Read Store Procedure", async t => {
 
+  const result: object = (await userRepository.readUser<any>(1));
 
-  const mysql = new MysqlInvoker(connectionCongif());
+  console.log(result);
 
-  const result: object = (await mysql.invoke<any[]>('readUser', {id: 1}))[0][0];
-
-  t.assert(result.hasOwnProperty('id'), 'Property exists on object')
+  t.pass();
+  // t.assert(result.hasOwnProperty('id'), 'Property exists on object')
 
 });
 
 
 test("Test List Store Procedure", async t => {
 
-  const mysql = new MysqlInvoker(connectionCongif());
+  const result: object = (await userRepository.listUser<any[]>(255, 0))[0];
 
-  const result: object = (await mysql.invoke<any[]>('listUser', {limit: 30, offset: 0}))[0];
+  console.log(result);
 
   t.assert(Array.isArray(result), 'Property exists on object')
 

@@ -74,7 +74,7 @@ async function createUser(createUserArg: object): Promise<any[]>{
 
     const mysql = new MysqlInvoker( { /** Config Options **/ } );
 
-    return await mysql.invoke<any[]>('createUser', createUserArg);
+    return await mysql.invokeProcedure<any[]>('createUser', createUserArg);
 }
 ```
 

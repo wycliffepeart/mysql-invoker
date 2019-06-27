@@ -63,8 +63,8 @@ drop procedure if exists `invoker`.`listUser`;
 create
   definer = 'provisioner' procedure `invoker`.`listUser`
 (
-  in `$limit` tinyint unsigned,
-  in `$offset` tinyint unsigned
+  in `$limit`  smallint unsigned,
+  in `$offset` int unsigned
 )
 begin
 
@@ -100,7 +100,7 @@ drop procedure if exists `invoker`.`updateUser`;
 create
   definer = 'provisioner' procedure `invoker`.`updateUser`
 (
-  in `$id` bigint unsigned,
+  in `$id`   bigint unsigned,
   in `$name` varchar(255)
 )
 begin
