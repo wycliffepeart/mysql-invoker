@@ -17,8 +17,6 @@ export function CreateRepository<T>(connectionConfig: Mysql.PoolConfig | Mysql.C
 
       return function (...models: ActionParams): Promise<T> {
 
-        // console.log({ connectionConfig, prop, models });
-
         const mysql = new MysqlInvoker(connectionConfig);
 
         return mysql.invokeProcedure(prop, ...models);

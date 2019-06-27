@@ -124,7 +124,6 @@ export class MysqlInvoker {
    */
   private invokeByConnection<T>(initiator: string, action: string, ...params: ActionParams): Promise<T> {
 
-    console.log(this.prepareAction(initiator, action, ...params).join(';'));
     return new Promise(async (resolve, reject) => {
 
       const conn = Mysql.createConnection(this.getConnectionConfig());

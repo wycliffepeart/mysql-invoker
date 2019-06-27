@@ -4,6 +4,7 @@ import { CreateRepository } from '../../src/procedure.repository';
 
 interface UserModel {
 
+  id?: number;
   name: string
 
 }
@@ -42,6 +43,14 @@ interface UserRepository {
    * @return {Promise<T>}
    */
   readUser<T>(...id: object[]): Promise<T>;
+
+  /**
+   * Update multiple or a single user in the database
+   * 
+   * @param id 
+   * @return {Promise<T>}
+   */
+  updateUser<T>(...user: UserModel[]): Promise<T>;
 
 }
 
