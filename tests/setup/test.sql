@@ -113,26 +113,6 @@ end $$
 
 delimiter ;
 
-/* Create stored procedure to delete a given user*/
-
-delimiter $$
-
-drop procedure if exists `invoker`.`deleteUser`;
-create
-  definer = 'provisioner' procedure `invoker`.`deleteUser`
-(
-  in `$id` bigint unsigned
-)
-begin
-
-  select * from `invoker`.`user` where `user`.`id` = `$id`;
-
-  delete from `invoker`.`user` where `user`.`id` = `$id`;
-
-end $$
-
-delimiter ;
-
 
 
 
