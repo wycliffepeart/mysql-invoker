@@ -1,6 +1,6 @@
 {
   "name": "mysql-invoker",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Mysql invoker is used to call stored procedure or function in the database",
   "main": "index.js",
   "scripts": {
