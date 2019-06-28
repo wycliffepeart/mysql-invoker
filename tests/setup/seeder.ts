@@ -1,8 +1,7 @@
-
 import * as faker from 'faker';
 import { userRepository } from './user.model';
 
-const seeds = Array.from(new Array(1000), () => ({ name: faker.name.findName() }));
+const seeds = Array.from(new Array(100), () => ({ name: faker.name.findName() }));
 
 userRepository.createUser<any>(...seeds).then(results => {
 
