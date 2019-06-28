@@ -1,5 +1,5 @@
-import { connectionCongif } from './connection';
-import { CreateRepository } from '../../src/procedure.repository';
+import { CreateRepository } from '../..';
+import { connectionConfig } from './connection';
 
 interface UserModel {
 
@@ -53,4 +53,4 @@ interface UserRepository {
 
 }
 
-export const userRepository = CreateRepository<UserRepository>(connectionCongif({ multipleStatements: true }));
+export const userRepository = CreateRepository<UserRepository>(connectionConfig({ multipleStatements: true }));
