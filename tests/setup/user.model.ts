@@ -1,4 +1,3 @@
-
 import { connectionCongif } from './connection';
 import { CreateRepository } from '../../src/procedure.repository';
 
@@ -43,12 +42,12 @@ interface UserRepository {
    * @return {Promise<T>}
    */
   readUser<T>(...id: object[]): Promise<T>;
-
+  
   /**
    * Update multiple or a single user in the database
-   * 
-   * @param id 
+   *
    * @return {Promise<T>}
+   * @param user
    */
   updateUser<T>(...user: UserModel[]): Promise<T>;
 
