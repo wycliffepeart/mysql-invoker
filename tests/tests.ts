@@ -1,24 +1,28 @@
 import test from 'ava';
-import { MysqlInvoker } from '../index';
+import { userRepository } from './setup/user.model';
 
+test("Test List Users Store Procedure", async t => {
 
-test("Test Read Store Procedure", async t => {
+  const result: object = (await userRepository.listUser<any[]>(255, 0))[0];
 
-  const mysql = new MysqlInvoker('localhost', 'secret', 'application', 'invoker');
-
-  const result: object = (await mysql.invoke<any[]>('readUser', {id: 1}))[0][0];
-
-  t.assert(result.hasOwnProperty('id'), 'Property exists on object')
+  t.assert(Array.isArray(result), 'Property exists on object')
 
 });
 
 
-test("Test List Store Procedure", async t => {
+test("Test Read User Store Procedure", async t => {
 
-  const mysql = new MysqlInvoker('localhost', 'secret', 'application', 'invoker');
+  const result: any = (await userRepository.readUser<any>(1))[0][0];
 
-  const result: object = (await mysql.invoke<any[]>('listUser', {limit: 30, offset: 0}))[0];
+  t.assert(result.id === 1, 'Property exists on object')
 
-  t.assert(Array.isArray(result), 'Property exists on object')
+});
+
+
+test("Test Update User Store Procedure", async t => {
+
+  const result: any = (await userRepository.updateUser<any[]>({id: 1, name: "Wycliffe Peart"}))[0][0];
+
+  t.assert(result.id === 1, 'Property exists on object')
 
 });
